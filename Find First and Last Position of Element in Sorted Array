@@ -1,0 +1,81 @@
+  vector<int> searchRange(vector<int>& nums, int target)   {
+
+         int n = nums.size();
+        if(n == 0) return {-1, -1}; //If target is not found in the array, return [-1, -1].
+        
+        int left = 0, right = n-1; // first & last ele
+
+        while(left <= right){  //find left boundary
+
+            int mid = (left+right) >> 1; //right shift
+
+            if(nums[mid] < target){
+                left = mid+1; //right move
+            }  else  { 
+                right = mid-1; // left move
+            }  
+        }
+        //if target not found in left side or left >= n(size of array)
+        if(left >= n || nums[left] != target)   { 
+            return {-1, -1};
+        }
+        
+        vector<int> ans = {left}; // store left in new vector : ans
+        
+        //find right boundary
+        left = 0;
+        right = n-1;
+        while(left <= right){
+            int mid = (left+right) >> 1;
+           
+            if(nums[mid] > target){
+                right = mid-1;
+            }else{
+                left = mid+1;
+            }
+        }
+        
+        ans.push_back(right); // store right in vector : ans
+        
+        return ans;
+    }  vector<int> searchRange(vector<int>& nums, int target)   {
+
+         int n = nums.size();
+        if(n == 0) return {-1, -1}; //If target is not found in the array, return [-1, -1].
+        
+        int left = 0, right = n-1; // first & last ele
+
+        while(left <= right){  //find left boundary
+
+            int mid = (left+right) >> 1; //right shift
+
+            if(nums[mid] < target){
+                left = mid+1; //right move
+            }  else  { 
+                right = mid-1; // left move
+            }  
+        }
+        //if target not found in left side or left >= n(size of array)
+        if(left >= n || nums[left] != target)   { 
+            return {-1, -1};
+        }
+        
+        vector<int> ans = {left}; // store left in new vector : ans
+        
+        //find right boundary
+        left = 0;
+        right = n-1;
+        while(left <= right){
+            int mid = (left+right) >> 1;
+           
+            if(nums[mid] > target){
+                right = mid-1;
+            }else{
+                left = mid+1;
+            }
+        }
+        
+        ans.push_back(right); // store right in vector : ans
+        
+        return ans;
+    }
