@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        //remove duplicates
+        unordered_set<int> unqEles;
+        //new vector to store elements
+        vector<int> unqs;
+        for(auto num : nums){
+            if(unqEles.find(num) == unqEles.end()){
+                unqs.push_back(num);
+                unqEles.insert(num);
+            }
+        }
+
+        //sorting the unqs array / vector -- find the difference between maximum and min
+        // elements in O(1) T.C.
+        sort(unqs.begin(), unqs.end());
+
+
+        //to use sliding window to find all the continous sub arrays in one traversal
+        int endIndx = 0; //this will be the index pointing the first element that will just next to the end of current continuous array.
+        //each index will be considered you starting index;
+
+
+        int sz = unqs.size();
+        int minOps = INT_MAX;
+
+        
+        for(int startIndx = 0; startIndx < sz; startIndx++){
+            //forming the current continous sub array.
+            while(endIndx < sz && unqs[endIndx] - unqs[startIndx] < nums.size())endIndx++;
+            //operations required to achieve this continous array
+            int opReq = nums.size() - (endIndx - startIndx);
+            //update min ops
+            minOps = min(minOps, opReq);
+        }
+        return minOps;
+    }
