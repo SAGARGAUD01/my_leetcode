@@ -1,0 +1,24 @@
+vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& p) {
+        
+        map<int,int> mpi;
+    for(const auto& f : flowers) { 
+          ++mpi[f[0]]; 
+          --mpi[f[1] + 1]; 
+     } 
+                                                                                 vector<int> prefix = {0}; 
+       vector<int> events; 
+       
+    //interating elements of 2D array 
+        for(const auto& [k, v] : mpi) { 
+   // adding elements from         
+       events.emplace_back(k); 
+   prefix.emplace_back(prefix.back() + v); 
+            } 
+              vector<int> res; 
+   for (const auto& t : p) { 
+    //distance func,  return elements from first and last
+   int i = distance(cbegin(events), upper_bound(cbegin(events), cend(events), t)); 
+                                                           res.emplace_back(prefix[i]); 
+                           }
+                return res;
+    }
