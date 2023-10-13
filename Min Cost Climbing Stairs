@@ -1,0 +1,58 @@
+
+// DP :- Memoization Bottom up approach :)
+// time O(n) & space O(n)
+    int sol1(vector<int>& cost, int sz,vector<int>& dp)  {
+            if(sz ==0 ) 
+            return cost[0];
+             if(sz == 1 ) 
+            return cost[1];
+    
+        //now after base cases dp steps 
+        if(dp[sz] != -1) {
+            return dp[sz];
+        }
+     dp[sz]  = cost[sz] + min(sol1(cost, sz-1,dp),sol1(cost, sz-2,dp));
+       
+        return dp[sz];
+          }
+
+//----------------- DP :- using Tabulation metho-----------------------//
+// time O(n) & space O(n)
+     int sol2(vector<int>& cost, int sz) {
+     vector<int> dp(sz+1);
+     dp[0] = cost[0];
+     dp[1] = cost[1];
+
+   for(int i=2; i<sz; i++) {  // from 2 to n-1 cases 
+       dp[i]  = cost[i] + min(dp[i-1],dp[i-2]);
+       }
+        return min(dp[sz-1],dp[sz-2]);
+}
+ 
+ // DP:- optimized approach  , time :- O(n) & space O(1)
+int sol3(vector<int>& cost, int sz) {
+
+     int p2 = cost[0];
+     int p1 = cost[1];
+
+     for(int i=2;i<sz;i++) {
+         int curr = cost[i] + min(p1,p2);
+         p2 = p1;
+         p1 = curr;
+     }
+     return min(p1,p2);
+}
+
+    int minCostClimbingStairs(vector<int>& cost) {
+        //--------> DP:- Bottom-up approach   <-------------//
+        // int sz = cost.size();
+        // vector<int> dp(sz+1,-1);  //memoization
+        // //storing in ans, min of one and two step's
+        // int ans = min(sol(cost, sz-1,dp),sol(cost, sz-2,dp)); 
+        // return ans;
+
+        //-------->dp :- Bottom -down approach <----------------------//
+
+        int sz = cost.size();
+         return sol3(cost,sz);
+    }
