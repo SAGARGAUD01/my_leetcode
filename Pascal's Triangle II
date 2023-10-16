@@ -1,0 +1,13 @@
+ vector<int> getRow(int rowIndex) {
+        int n = rowIndex;
+        vector<int> ans;
+
+        long long int vr = 1;
+
+        for(int i=0; i<=n; i++) {
+            ans.push_back(vr);
+            vr = vr*(n - i)/(i+1);
+
+        }
+        return ans;
+    }
