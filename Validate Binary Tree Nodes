@@ -1,0 +1,29 @@
+bool validateBinaryTreeNodes(int n, vector<int>& leftChild, vector<int>& rightChild) {
+
+/---------------------------Neat Code---------------------------/
+    std::queue<int> q;
+    std::unordered_set<int> hs; 
+    q.push(0); 
+
+    while (!q.empty()) {
+        int i = q.front();  // maintain queue first ele in 'i'
+        q.pop(); //release it
+
+        if (hs.find(i) != hs.end()) {
+            return false; 
+        }
+
+        hs.insert(i); 
+ 
+   // left child traversal ,check it -1 or not 
+        if (leftChild[i] != -1) {
+            q.push(leftChild[i]); 
+        } 
+   // right child traversal ,check it -1 or not 
+        if (rightChild[i] != -1) {
+            q.push(rightChild[i]);
+        }
+
+    }
+    return hs.size() == n; //itself a condition
+ }
