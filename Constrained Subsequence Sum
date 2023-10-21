@@ -1,0 +1,29 @@
+ int constrainedSubsetSum(vector<int>& nums, int k) {
+
+        int n = nums.size();
+         deque<int> deq; //we are maintaining in dequeue
+        
+        vector<int> temp(nums);  
+        int maxR = temp[0]; //reserve the 0th element in the temp
+        
+        for(int i = 0; i<n; i++)   { 
+        
+	      //first get rid of out of range indices
+            while(!deq.empty() && deq.front() < i-k) //<(i-k)
+                deq.pop_front(); //release
+            
+            if(!deq.empty())  
+                temp[i] = max(temp[i], nums[i] + temp[deq.front()]);
+            
+            //we maintain the deque in descending order...
+	    //So that you can get the optimum value at once from front....
+            while(!deq.empty() && temp[i] >= temp[deq.back()])  
+                deq.pop_back();
+            
+            deq.push_back(i);
+            
+            maxR = max(maxR, temp[i]);
+        }
+        
+        return maxR;
+    }
