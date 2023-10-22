@@ -1,0 +1,24 @@
+int maximumScore(vector<int>& nums, int k) {
+
+         int res = nums[k];
+         int curr = nums[k];
+
+        int left = k, right = k;
+        // left-1 >=0 or right +1 < nums.size()
+        while (left - 1 >= 0 || right + 1 < size(nums)) {
+              //update otherwise 0 return for both case's
+            int l = (left - 1 >= 0 ? nums[left - 1] : 0); 
+            int r = (right + 1 < size(nums) ? nums[right + 1] : 0);
+
+            if (l < r) { // choosing larger one to expand is always better than or equal to choosing smaller one
+                ++right;
+            }
+             else {
+                --left; //when s is smaller
+            }
+
+            curr = min({curr, nums[left], nums[right]});
+            res = max(res, curr * (right - left + 1));
+    }
+    return res;
+    }
