@@ -1,0 +1,11 @@
+ bool isPowerOfFour(int num) {
+    //    // in short way
+    //      return num>0 && (num-1)%3==0 && (num&(num-1))==0;
+
+    //  --------------
+ //till n is non-zero and n & ob00 means -> 0 amd similarly ob11 -> 3 , ob just rep binary
+        while(num && !(num & 0b11)) {
+            num = num>>2;// right shift by 2
+        } 
+        return (num == 1);                     //-----------*/
+    }
