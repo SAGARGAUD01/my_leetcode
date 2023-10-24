@@ -1,0 +1,21 @@
+  vector<int> largestValues(TreeNode* root) { 
+     vector<int> res;
+          helpme_baby(root, 0, &res);
+        return res;
+    }
+
+    void helpme_baby(TreeNode* root,int depth,vector<int> *res) {
+            if (!root) {
+            return;
+           }
+
+        if (depth == res->size()) {
+            res->emplace_back(root->val);
+        } else {
+
+            (*res)[depth] = max((*res)[depth], root->val);
+        }
+        helpme_baby(root->left, depth + 1, res);
+        helpme_baby(root->right, depth + 1, res);
+
+    }
