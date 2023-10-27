@@ -1,0 +1,32 @@
+class Solution {
+public:
+        
+  vector<int> Longest_string(const string& str, int i, int j) {
+	while (i >= 0 && j < str.size()) {
+		if (str[i] != str[j]) {
+			break;
+		}
+		i--;
+		j++;
+	}
+	return vector<int> {i+1, j};
+}
+
+ string longestPalindrome(string str) {
+
+	string res = ""; //consider empty initially
+
+	for (int i = 0; i < str.size(); i++) {
+
+		vector<int> odd = Longest_string(str, i-1, i+1); //odd
+		vector<int> even = Longest_string(str, i-1, i); //even
+
+		vector<int> longer_one = odd[1] - odd[0] > even[1] - even[0] ? odd : even; //ternary condition
+
+		if (res.size() < (longer_one[1] - longer_one[0])) {
+			res = str.substr(longer_one[0], longer_one[1] - longer_one[0]);
+		}
+	}
+	return res;   
+    }
+};
