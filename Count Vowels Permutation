@@ -1,0 +1,59 @@
+#include<unordered_map>
+class Solution {
+unordered_map<int,vector<int>> mpi;
+        int mod = 1e9+7;
+
+public:
+        
+    int Protector(int n, int i, char prev, vector<vector<long long> > &dp){
+      //i given as 1
+            if (i > n){  // if i>n ,then no string count
+                return 0;
+            }
+
+            if(i == n){
+                switch(prev)  // according to all given 5-conditions
+                {
+                    case 'a':
+                        return 1;
+                    case 'e':
+                        return 2;
+                    case 'i':
+                        return 4;
+                    case 'o':
+                        return 2;
+                    case 'u':
+                        return 1;
+                    default:
+                        return 5; // all 5 vowel, by defaultly
+                }
+            }
+
+            int idx = prev - 'a';
+            if(dp[i][idx] != -1){
+                return dp[i][idx]; // dp base case
+            }
+
+            long long ans = 0;
+            for(auto it : mpi[prev]){
+                ans += (Protector(n, i+1, it, dp) %mod);
+            }
+            return dp[i][idx] = ans%mod;  //take ans with mod
+        }
+
+    int countVowelPermutation(int n) {
+        mpi['c'] = {'a','e','i','o','u'};
+        mpi['a'] = {'e'};
+        mpi['e'] = {'a','i'};
+        mpi['i'] = {'a','e','o','u'};
+        mpi['o'] = {'i','u'};
+        mpi['u'] = {'a'};
+
+
+    //as we can understand recursion need here so, using dp approach
+vector<vector<long long>> dp(vector<vector<long long>> (n+2,vector<long long> (27,-1)));
+
+return Protector(n,1,'c',dp);
+    }
+
+};
