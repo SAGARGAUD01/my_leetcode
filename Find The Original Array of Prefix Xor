@@ -1,0 +1,8 @@
+vector<int> findArray(vector<int>& pref) {
+        int last = size(pref) -1;
+
+            for (int i = last; i >= 1; --i) { //traverse from last
+            pref[i] ^= pref[i - 1];  //take xor
+        }
+        return pref;
+    }
