@@ -1,0 +1,22 @@
+int getWinner(vector<int>& arr, int k) {
+         int n = arr.size();
+        
+        if(k >= n) 
+        return *max_element(arr.begin(), arr.end()); //we will return (max from beg to end)
+        
+        int win_count = 0; //for k traversal
+        int max = arr[0]; //storing arr[0] in max
+        int cur = 1; //current count
+        
+        while(cur < n && win_count < k){
+
+            if(max > arr[cur]){ 
+                ++win_count; //update win_count for k traversal
+            }else{
+                win_count = 1;
+                max = arr[cur]; //update max with arr[cur]
+            }
+            ++cur; //update cur count
+        }
+        return max;
+    }
