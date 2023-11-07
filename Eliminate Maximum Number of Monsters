@@ -1,0 +1,12 @@
+  int eliminateMaximum(vector<int>& dist, vector<int>& speed) {
+        int nn = dist.size();
+
+        for(int i=0;i<nn;i++) {
+            dist[i] = (dist[i]-1)/speed[i]; //update dist every time
+        }
+
+        sort(dist.begin(),dist.end());
+        int res=0;
+        for(; res < nn && res <= dist[res];res++); //for-break method
+        return res;
+    }
