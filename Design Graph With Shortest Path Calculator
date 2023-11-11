@@ -1,0 +1,51 @@
+ Graph(int n, vector<vector<int>>& edges) : adj_(n) {
+        for (const auto& edge : edges) {
+            addEdge(edge);  //now addedge function call
+        }
+    }
+    
+    void addEdge(vector<int> edge) {
+        adj_[edge[0]].emplace_back(edge[1], edge[2]);  //adding new elements
+    }
+    
+    int shortestPath(int node1, int node2) {
+        const auto& dijkstra = [](const auto& adj, int s, int t)
+         {
+            static const int INF = numeric_limits<int>::max(); //integral & floating points
+
+            vector<int> best(size(adj), INF); 
+            best[s] = 0; // set zero's in vector best
+
+            priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> min_heap;  //priority heap
+
+            min_heap.emplace(0, s);  //insert 0 to s elements in heap
+            while (!empty(min_heap)) { //untile heap become's empty
+                const auto [curr, it] = min_heap.top(); //store top_of_heap in curr_const_variable & it
+                 min_heap.pop(); //release heap
+
+                if (curr > best[it]) {
+                    continue;  //breaks one iteration (in the loop)
+                }
+
+                if (it == t) {
+                    break; //it-iteration becomes equals to target,thn break
+                }
+
+                for (const auto& [v, w] : adj[it]) {
+                    if (!(w < best[v] - curr)) {
+                        continue;
+                    }
+
+                    best[v] = curr + w;
+                    min_heap.emplace(curr + w, v);
+                }
+            }
+            return best[t] != INF ? best[t] : -1; //ternary condition
+        };
+
+        return dijkstra(adj_, node1, node2);
+    }
+
+private:
+    vector<vector<pair<int, int>>> adj_;
+};
