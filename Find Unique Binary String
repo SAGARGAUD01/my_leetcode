@@ -1,0 +1,10 @@
+ string findDifferentBinaryString(vector<string>& nums) {
+         string res; //creating string -> res
+
+        for (int i = 0; i < size(nums); ++i) {
+            // put in res string if nums elemnt equals to 0 then 1,otherise 0
+            res.push_back((nums[i][i] == '0') ? '1' : '0'); 
+        }
+
+        return res;
+    }
