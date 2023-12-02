@@ -1,0 +1,23 @@
+ int countCharacters(vector<string>& words, string chars) {
+         vector<int> freq(26,0);  //for all 26 characters 
+        for(auto ch : chars){
+            int idx = ch - 'a'; //to iterate 
+            freq[idx]++;
+        }
+      
+        int count = 0;
+        for(auto str : words){
+            vector<int> temp = freq;
+            int i;
+            for(i = 0; str[i] != '\0'; i++){
+                int idx = str[i] - 'a';  //storing each specific characters
+                if(temp[idx] == 0)
+                break;
+                temp[idx]--; //update temp index
+            }
+            if(str[i] == '\0')
+                count += i;
+        }
+        
+        return count; 
+    }
