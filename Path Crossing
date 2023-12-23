@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool isPathCrossing(string path) {
+             
+        set<vector<int>> vis;    //vis vector
+        pair<set<vector<int>>::iterator, bool> res;
+        int i = 0, j = 0;
+        
+        vis.insert({0, 0});
+        
+        for(char c : path){
+            switch(c){
+                case 'N':
+                    res = vis.insert({--i, j});
+                    if(!res.second) return true;
+                    break;
+                case 'S':
+                    res = vis.insert({++i, j});
+                    if(!res.second) return true;
+                    break;
+                case 'W':
+                    res = vis.insert({i, --j});
+                    if(!res.second) return true;
+                    break;
+                case 'E':
+                    res = vis.insert({i, ++j});
+                    if(!res.second) return true;
+                    break;
+            }
+        }
+        
+        return false;
+    }
+};
