@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+       
+        unordered_map<int,int> cnt;
+        
+        for (auto& it : arr) {
+            ++cnt[it];  //storing occurence
+        }
+        
+        unordered_set<int> sett;
+        
+        for (auto& [it1,it2]: cnt) {
+            
+            if (sett.count(it2)) {
+                return false;
+            }
+            sett.emplace(it2);
+        }
+        return true;
+    }
+};
