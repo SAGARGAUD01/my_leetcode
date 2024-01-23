@@ -1,0 +1,30 @@
+class Solution {
+    
+public:
+    int maxLength(vector<string>& arr) 
+       {
+         int res=0;
+        vector<bitset<26>> trav= {bitset<26>()};
+        
+        for(auto& it: arr) {
+            bitset<26> tmp;
+             for(auto& c: it)  {
+                 tmp.set(c - 'a');  //storing inside tmp bitset in terms of ascii
+             }
+                if(tmp.count()<it.size()) 
+                  continue;
+                
+        for (int i = 0; i < trav.size();i++) {
+                bitset vr = trav[i];
+            
+             if ((vr & tmp).any()) continue;
+            
+                trav.push_back(vr | tmp);  //put iside trav bitset 
+                int len = vr.count() + tmp.count(); //storing length of largest string after concatenation
+                res = max(res, len);
+    }
+        }
+        return res;
+    }
+    
+};S
