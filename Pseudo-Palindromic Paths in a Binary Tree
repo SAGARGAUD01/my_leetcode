@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int pseudoPalindromicPaths (TreeNode* root) {
+        return dfs(root,0); //set initially count as 0
+    }
+private:
+    
+    int dfs(TreeNode *node, int count) {  //Traversing through dfs and maintaining count->leaf-node-count
+        
+        if (!node) {
+            return 0; //when node is null
+        }
+        
+        count ^= 1 << node->val;  //taking xor of count with 1 ,so 1^1=0 & 0^1=1, and l-shift by val
+        return int(!node->left && !node->right && (count & (count - 1)) == 0) +
+               dfs(node->left, count) + dfs(node->right, count); 
+    }
+};
