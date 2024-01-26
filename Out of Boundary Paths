@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+    vector<vector<vector<int>>> dp;  //3d dp
+    int MOD = 1e9+7;
+        
+    //use dfs to traverse
+        int dfs(int m, int n, int mxMv, int i, int j) {
+            
+            //Base case's
+        if(i < 0 || i == m || j < 0 || j == n)
+            return 1;
+        if(mxMv == 0) 
+            return 0;
+            
+        if(dp[mxMv][i][j] >= 0) 
+            return dp[mxMv][i][j];
+        
+        //dfs, not findPaths!!
+            //all four directions
+        int a = dfs(m, n, mxMv-1, i, j-1);  
+        int b = dfs(m, n, mxMv-1, i, j+1);
+        int c = dfs(m, n, mxMv-1, i-1, j);
+        int d = dfs(m, n, mxMv-1, i+1, j);
+        
+        return dp[mxMv][i][j] = (((a+b)%MOD + c)%MOD +d) % MOD;
+    }
+        
+          int findPaths(int m, int n, int mxMv, int i, int j) {
+              
+        if(i < 0 || i == m || j < 0 || j == n)  //base case when strtrw ,srtclm <0 ,return 1 also in case of i,j==m,n
+            return 1;
+              
+        if(mxMv == 0) 
+            return 0;  //when max_move are 0
+        
+        dp = vector<vector<vector<int>>>(mxMv+1, vector<vector<int>>(m, vector<int>(n, -1)));  
+        
+        return dfs(m, n, mxMv, i, j);
+    }
+
+};
