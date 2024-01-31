@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temp) {
+   
+        std::stack<int> stk;
+    int n = temp.size();
+    std::vector<int> result(n, 0);
+
+    for (int idx = n - 1; idx >= 0; idx--) {
+        // Popping all indices with a lower or equal temperature than the current index
+        while (!stk.empty() && temp[idx] >= temp[stk.top()]) {
+            stk.pop();
+        }
+
+        // If the stack still has elements, then the next warmer temperature exists!
+        if (!stk.empty()) {
+            result[idx] = stk.top() - idx;
+        }
+
+        // Inserting current index in the stack
+        stk.push(idx);
+    }
+
+    return result;
+    }
+};
