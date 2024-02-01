@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> divideArray(vector<int>& nums, int k) {
+         sort(nums.begin(), nums.end());
+        
+        vector<vector<int>> ans;  
+        int n = nums.size();
+        
+        for (int i = 0; i < n; i += 3){  //Divide-array into one or more arrays of size 3
+            
+            vector<int> t = {nums[i], nums[i + 1], nums[i + 2]}; //3 way traversal
+            
+            if (t[2] - t[0] > k) {
+    //difference between any two elements in one array is less than or equal to k.
+                return {};
+            }
+            ans.emplace_back(t);
+        }
+        return ans;
+    }
+};
