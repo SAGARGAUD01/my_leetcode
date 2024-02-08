@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int numSquares(int n) {
+        
+          vector<int> dp(n+1, 0); //making dp from last to begining
+        
+        for( int i = 1; i <= n; ++i ){
+            
+            int ct = INT_MAX;  //making count as Max^
+            
+            /*
+            i = j*j + (i-j*j) for j <= sqrt(i)
+            */
+            
+          for(int j=1; j*j <=i; j++)  {
+                
+              ct = min(ct, dp[i - j*j]+1); //storing in ct 
+          }
+            
+            dp[i] = ct;  //update dp[i]
+        }
+        
+        return dp[n];
+    }
+};
