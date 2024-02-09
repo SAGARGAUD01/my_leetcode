@@ -1,0 +1,80 @@
+class Solution {
+public:
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        
+//                long long int n = nums.size();
+        
+//             if(n == 0) return nums; 
+//            vector<vector<int>> ssets;
+        
+//          sort(nums.begin(), nums.end()); //sorting num-array from beg to end
+        
+//         for(int i = 0; i < n; i++){
+            
+//             for(auto &it : ssets){ //traversing subset through iterator
+                
+//                 if(nums[i] % it.back() == 0){  //answer[i] % answer[j] == 0, 
+//                     it.push_back(nums[i]); //push backing nums into iterator-it
+//                 }
+//             }
+            
+//             ssets.push_back({nums[i]}); 
+//         }
+        
+//         // for(vector<int>& subset : subsets){
+//         //     for(int e : subset){
+//         //         cout << e << " ";
+//         //     }
+//         //     cout << endl;
+//         // }
+        
+//         sort(ssets.begin(), ssets.end(),
+//              //for checking both ele of pair through comp func & further sorting
+//         [](const vector<int>& a, const vector<int>& b){
+//                 return (a.size() == b.size()) ? a[0] < b[0] : a.size() > b.size();
+//             });
+        
+//         return ssets[0];                        //this giving some test case WA**
+        
+      int n = nums.size();
+        vector<int> ans;
+        if(n==0)
+        return ans;
+        
+        sort(nums.begin(),nums.end());
+        int max = 1;
+        
+        vector<int> dp(n+1,1);
+        
+        for(int i=1;i<n;++i)
+        {
+            for(int j=0;j<i;++j)  //2nd loop from j to i
+            {
+                if(nums[i]%nums[j]==0 && 1+dp[j]>dp[i])  // just ATQ ,ans[i]%ans[j]==0
+                {
+                    dp[i] = 1+dp[j]; //update each time by +1
+                    if(max<dp[i])
+                        max = dp[i];  //upda
+                    te max with dp
+                }
+            }
+            
+        }
+        
+        //Now push the answer LIS
+        int prev = -1;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(dp[i]==max &&  (prev%nums[i]==0 || prev==-1))
+            {
+                
+                ans.push_back(nums[i]);
+                max -=1;
+                prev = nums[i];
+            }
+        }
+        return ans;
+        
+        
+    }
+}; 
