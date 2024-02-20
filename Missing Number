@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        
+        vector<int> arr(nums.size()+1); //making vector-arr of size+1
+        
+        
+        iota(arr.begin(), arr.end(), 0); //increasing by 1 inc order
+        
+        for(int it : nums){
+            
+            arr.erase(remove(arr.begin(), arr.end(), it), arr.end());
+            
+        }
+        
+        return arr[0];
+    }
+    
+};
