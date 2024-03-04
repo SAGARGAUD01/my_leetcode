@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int bagOfTokensScore(vector<int>& tokens, int power) {
+       std::sort(tokens.begin(), tokens.end());  //for ease to choose
+        
+        int st = 0, end = tokens.size() - 1;  //start or end -index
+        int score = 0, max_scr = 0;
+
+        while (st <= end) {  
+            if (power >= tokens[st]) { //If your current power is at least tokens[i], you may play tokeni,
+                
+                power -= tokens[st++]; // losing tokens[i] power 
+                score++;  //and gaining 1 score
+                
+                max_scr = std::max(score, max_scr);  //maximizing possible score
+                
+            } else if (score >= 1) { //If your current score is at least 1
+                power += tokens[end--];  // gaining tokens[i] power 
+                score--;  // losing 1 score.
+            } else {
+                break;
+            }
+        }
+        return max_scr;   //return maxi score
+    }
+};
