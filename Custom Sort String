@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+         unordered_map<char, int> freq;
+    
+    for (char c : s) {
+        freq[c]++;
+    }
+    
+    // Result string to store the permutation
+    string result = "";
+    
+    // Traverse through the characters in order
+    for (char c : order) {
+        
+        if (freq.find(c) != freq.end()) {
+            result += string(freq[c], c);
+            freq.erase(c);
+        }
+    }
+    
+    // Append remaining characters of s to result
+    for (auto it : freq) {
+        result += string(it.second, it.first);
+    }
+    
+    return result;
+    }
+};
