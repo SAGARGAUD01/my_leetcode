@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        
+        int answa=0,sum=0;
+        
+        vector<int> tmpar(nums.size()+1,0);
+        
+        for(int it:nums){
+            sum += it;
+            
+            if(sum == goal) answa++; //update if equalls
+            
+            if(sum - goal>=0) answa+= tmpar[sum - goal];
+            
+             tmpar[sum]++;
+        }
+        return answa;
+    }
+};
