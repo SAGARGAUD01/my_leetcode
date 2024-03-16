@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        unordered_map<int, int> countMap;
+        countMap[0] = -1; // Initialize the map with count 0 at index -1
+        int maxLength = 0;
+        int count = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            count += (nums[i] == 1) ? 1 : -1; // Increment count for 1 and decrement for 0
+            
+            // If the count is encountered before, calculate the length of the subarray
+            if (countMap.find(count) != countMap.end()) {
+                maxLength = max(maxLength, i - countMap[count]); // Update maxLength if necessary
+            } else {
+                countMap[count] = i; // Store the count along with its index
+            }
+        }
+
+        return maxLength;
+    }
+};
