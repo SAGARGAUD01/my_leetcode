@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        
+        unordered_map<char,int> cnt;
+        int max_cnt = 0;
+        
+        for (const auto& it : tasks) { //traversing tasks arr
+            ++cnt[it]; //keep updating cnt by index-it
+            
+            max_cnt = max(max_cnt, cnt[it]); //take max-one
+        }
+        
+        auto ans = (max_cnt - 1) * (n + 1);
+        for (const auto& it : cnt) { ///now traversing un_map -> cnt
+            if (it.second == max_cnt) {
+                ++ans;
+            }
+        }
+        return max(ans, static_cast<int>(tasks.size()));
+        
+    }
+};
