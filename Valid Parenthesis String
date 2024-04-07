@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool checkValidString(string s) {
+        int lo = 0, hi = 0;
+        for(char c : s){
+            lo += (c == '(') ? 1 : -1;
+            hi += c != ')' ? 1 : -1;
+            //if there are more ) than ( in a prefix, it cannot be fixed
+            if(hi < 0) break;
+            lo = max(lo, 0);
+            // cout << lo << ", " << hi << endl;
+        }
+        // cout << lo << ", " << hi << endl;
+        // cout << endl;
+        return lo == 0;
+    }
+};
