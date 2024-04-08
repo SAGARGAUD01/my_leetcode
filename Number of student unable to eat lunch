@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int countStudents(vector<int>& students, vector<int>& sandwiches) {
+        vector<int> vec(2);
+        for(auto it: students) 
+            vec[it]++;
+          for(auto it: sandwiches) 
+              if(vec[it] == 0) 
+               return vec[0] +vec[1];
+              else 
+                 vec[it]--;
+    return 0;
+    }
+};
