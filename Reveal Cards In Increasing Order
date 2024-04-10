@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+     
+     sort(deck.begin(), deck.end()); //sorting deck cards
+     int n = deck.size();
+     queue<int> indi;
+
+    for (int i = 0; i < n; ++i) {
+        indi.push(i);
+    }
+
+    vector<int> result(n);
+
+    for (int it : deck) { //traversing deck cards
+        result[indi.front()] = it; //keep front in result
+        indi.pop(); //release it
+        
+        if (!indi.empty()) { //indi is empty or not
+            indi.push(indi.front()); //Move the next top index to the back
+            indi.pop();
+        }
+    }
+
+    return result;
+}
+};S
