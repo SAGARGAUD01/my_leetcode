@@ -1,0 +1,33 @@
+ int count;
+
+    int islandPerimeter(vector<vector<int>>& grid) {
+        count = 0;
+        for (int i = 0; i < grid.size(); i++) {
+            for (int j = 0; j < grid[i].size(); j++) {
+                if (grid[i][j] == 1) {
+                    dfs(grid, i, j);
+                    return count;  // Since we only need to count the perimeter of one island
+                }
+            }
+        }
+        return count;
+    }
+
+private:
+    void dfs(vector<vector<int>>& grid, int i, int j) {
+        // Check boundary conditions and water cells
+        if (i < 0 || i >= grid.size() || j < 0 || j >= grid[i].size() || grid[i][j] == 0) {
+            count++; // Increment count for water or out-of-bound cells
+            return;
+        }
+        
+        if (grid[i][j] == -1) return; // Already visited
+        
+        grid[i][j] = -1; // Mark as visited
+        
+        // Explore in all four directions
+        dfs(grid, i + 1, j);
+        dfs(grid, i - 1, j);
+        dfs(grid, i, j + 1);
+        dfs(grid, i, j - 1);
+    }
