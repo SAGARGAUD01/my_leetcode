@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& grid) {
+     
+          int m = grid.size(), n = grid[0].size(); //row & colmn
+        
+        int ans = INT_MAX;   //for smallest poss answer
+        vector<vector<int>> dp(m, vector<int>(n, 0)); //memo(to avoid repetation of pair's)
+        
+        for(int j = 0; j < n; j++){
+            dp[0][j] = grid[0][j];
+        }
+        
+        
+        for(int i = 1; i < m; i++)   {
+            //making vector to store pair's using dp
+            vector<int> last_row(dp[i-1].begin(), dp[i-1].end());
+        
+          auto last_row_min_it = min_element(last_row.begin(), last_row.end()); //last row of grid
+          int last_row_min_idx = last_row_min_it - last_row.begin(); //last row min index
+           
+            int last_row_min = *last_row_min_it; //update row_min
+            
+            nth_element(last_row.begin(), last_row.begin()+1, last_row.end(), less<int>());
+            
+            int last_row_2min = last_row[1];
+          
+            for(int j = 0; j < n; j++){
+                if(j == last_row_min_idx){
+                    dp[i][j] = grid[i][j] + last_row_2min;
+                }else{
+                    dp[i][j] = grid[i][j] + last_row_min;
+                }
+            }
+        }
+         return *min_element(dp[m-1].begin(), dp[m-1].end());
+    }
+};
