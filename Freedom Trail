@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<vector<int>> dp; // 2D-DP, bcoz two things changes :- ptr & index
+     int helpr(string &ring, string &key,int ptr,int index)  
+     {
+        //size of ring & key
+        int n = ring.size();
+        int m = key.size();
+         
+          //base 
+         if(index >= m) return 0;
+         
+         if(dp[index][ptr] != -1) {
+             return dp[index][ptr];
+         }
+         
+         int steps = 1e9; //steps to reach next char lets assume ,1e9
+         //choice 
+         for(int i=0;i<n;i++) {
+             if(ring[i] == key[index]) {
+ //--Taking min dir + calling helpr with updated index and ptr as i--//
+                 steps = min(steps,min(abs(i-ptr),n-abs(i-ptr)) + 1 +  helpr(ring,key,i,index+1)); 
+             }
+         }
+           return dp[index][ptr] = steps;
+     }
+    
+    int findRotateSteps(string ring, string key) {
+        // ptr and index
+        int ptr=0;
+        int index=0;
+        
+        
+        //size of ring & key
+        int n = ring.size();
+        int m = key.size();
+        
+        //dp initialization 
+        dp.assign(m+1,vector<int>(n+1,-1));  //memo
+        return dp[index][ptr]= helpr(ring,key,ptr,index);
+    }
+};
