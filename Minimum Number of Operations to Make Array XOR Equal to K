@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        
+        //using bultin_popcnt & accumulate 
+        
+        return __builtin_popcount(accumulate(cbegin(nums), cend(nums), k, [](int accu, int x) {
+            return accu ^ x;
+    }));
+    }
+};
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------//
+
