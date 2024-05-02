@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int findMaxK(vector<int>& nums) {
+        
+      unordered_set<int> numSet(nums.begin(), nums.end()); //store in un_set
+    int largestK = -1; //atq, set -1
+    for (int it : nums) {
+     if (it > 0 && numSet.count(-it)) { //we need only +ve integer so c(-it)
+            largestK = max(largestK, it); //choosing max of (largestk,it)
+        }
+    }
+    return largestK;
+        
+    }
+};
