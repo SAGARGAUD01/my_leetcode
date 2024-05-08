@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& score) {
+        
+        vector<int> tmp = score;
+          sort(tmp.begin(), tmp.end(), greater<int>());
+         unordered_map<int, std::string> rankMap;
+    int n = score.size();
+    
+    for (int i = 0; i < n; ++i) {
+        if (i == 0) {
+            rankMap[tmp[i]] = "Gold Medal";
+        } else if (i == 1) {
+            rankMap[tmp[i]] = "Silver Medal";
+        } else if (i == 2) {
+            rankMap[tmp[i]] = "Bronze Medal";
+        } else {
+            rankMap[tmp[i]] = to_string(i + 1);
+        }
+    }
+    
+     vector<std::string> res;
+    for (int s : score) {
+        res.push_back(rankMap[s]);
+    }
+    
+    return res;
+    }
+};
