@@ -1,0 +1,23 @@
+class Solution {
+public:
+    using ll = long long;
+
+    ll maximumValueSum(std::vector<int>& nums, int k, std::vector<std::vector<int>>& edges) {
+        ll sum = 0, cnt = 0;
+        ll upd = LLONG_MAX;
+        for (const auto& it : nums)  {
+            if ((it ^ k) > it)  {
+                sum += (it ^ k); // Update sum with it^k value
+                upd = std::min(upd, (ll)(it ^ k) - it);
+                cnt++; // Increment count by 1
+            } else  {
+                sum += it;
+                upd = std::min(upd, (ll)it - (it ^ k));
+            }
+        }
+        if (cnt % 2 == 0) // Even case
+            return sum;
+        return sum - upd;
+    }
+};
+  
