@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int subsetXORSum(vector<int>& nums) {
+        
+        int n = nums.size();
+        int totalSum = 0;
+        
+        // Loop through all possible subsets
+        int totalSubsets = 1 << n;  // 2^n subsets 
+        for (int i = 0; i < totalSubsets; ++i) {
+            int vr = 0;
+            for (int j = 0; j < n; ++j) {
+                // Check if j-th element is in the i-th subset
+                if (i & (1 << j)) { //i- true & (j left swift by 1)
+                    vr ^= nums[j]; //update vr nums[j]
+                }
+            }
+            totalSum += vr; //now total sum updated by vr
+        }
+        return totalSum;
+    }
+};
