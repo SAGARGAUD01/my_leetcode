@@ -1,0 +1,25 @@
+class Solution {
+public:
+ long long MOD = 1000000007;
+
+    int checkRecord(int n) {
+        
+         long long noA[3] = {1, 0, 0};
+        long long oneA[3] = {0, 0, 0};
+
+        for (int i = 0; i < n; ++i) {
+            long long new_noA0 = (noA[0] + noA[1] + noA[2]) % MOD;
+            long long new_oneA0 = (noA[0] + noA[1] + noA[2] + oneA[0] + oneA[1] + oneA[2]) % MOD;
+
+            noA[2] = noA[1];
+            noA[1] = noA[0];
+            noA[0] = new_noA0;
+
+            oneA[2] = oneA[1];
+            oneA[1] = oneA[0];
+            oneA[0] = new_oneA0;
+        }
+
+        return (noA[0] + noA[1] + noA[2] + oneA[0] + oneA[1] + oneA[2]) % MOD;
+    }
+};
