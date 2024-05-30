@@ -1,0 +1,17 @@
+class Solution {
+public: 
+    int countTriplets(vector<int>& arr) {
+        unordered_map<int, pair<int,int>> ct_sum;
+          ct_sum[0] = {1,0}; 
+          int res=0;
+
+          for(int vr=0,prefix=0;vr<arr.size();vr++) {
+                 prefix ^= arr[vr];
+                 auto& [c,t] = ct_sum[prefix]; //(iterating pair of prefix)
+                 res += c*vr - t; //adding first ele of pair*vr - sec ele
+                 ++c,t += vr+1; //each time inc-c and update t with index vr by 1
+          }
+             return res;
+    }
+
+};
