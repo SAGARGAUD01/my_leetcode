@@ -1,0 +1,31 @@
+class Solution {
+public:
+
+    vector<int> singleNumber(vector<int>& nums) {
+        //XOR all ele's to get the XOR of the two unique ele
+     int x_res = 0;
+     for (int it : nums) {
+        x_res ^= it; //stoing all ele in x_res
+    }
+    
+    /*          find a distinguishing bit (rightmost set bit)            */
+        //int rms_bit = x_res & - x_res; //rms_bit
+
+        int rms_bit = 1;
+    while ((x_res & rms_bit) == 0) {
+        rms_bit <<= 1; //left_shiftby1
+    }
+    //partition the ele's into two groups and XOR each group
+
+    int unq1 = 0, unq2 = 0;
+    for (int it : nums) {
+        if (it & rms_bit) {
+            unq1 ^= it;
+        } else {
+            unq2 ^= it;
+        }
+    }
+     return {unq1,unq2};
+}
+
+};
