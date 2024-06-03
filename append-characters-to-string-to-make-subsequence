@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int appendCharacters(string s, string t) {
+        //just store size of both string/
+         int xy = s.size();
+        int yx = t.size();
+        
+        int vr1=0,vr2=0; //two var-pntr
+        while(vr1 <xy && vr2 <yx)  {
+            
+            if(s[vr1]==t[vr2]) 
+                vr2++; vr1++;
+        }
+        return yx - vr2;  // size of t string -vr2
+    }
+};
