@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+       unordered_map<char, int> char_c;
+    
+    for (char c : s) { //iterating str
+        char_c[c]++; //updating count in un_map
+    }
+
+    int pl = 0;
+    bool odd_c = false; //odd count considering false initially
+
+    for (auto& it : char_c) { //iterating un_map
+        int count = it.second;
+        
+         pl += (count / 2) * 2;
+        
+        if (count % 2 == 1) {
+            odd_c = true;
+        }
+    }
+
+    if (odd_c) {
+        pl += 1;
+    }
+
+    return pl;
+    }
+};   
