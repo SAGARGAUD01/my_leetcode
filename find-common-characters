@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& words) {
+        
+        vector<int> minFreq(26, INT_MAX); // To store the minimum frequency of each character
+    
+          for(const auto& it : words) { //iterating words string
+             vector<int> charFreq(26, 0); //Frequency of char in the current word(string)
+        
+        for (const auto& ch : it) { //iterating -it
+            charFreq[ch - 'a']++; //updating in int form by subtracting 'a'
+        }
+        
+        for (int i = 0; i < 26; ++i) {
+            minFreq[i] = min(minFreq[i], charFreq[i]);
+        }
+    }
+    
+        vector<string> res;
+    for (int i = 0; i < 26; ++i) {
+        while (minFreq[i] > 0) {
+            res.push_back(string(1,'a' + i));
+            minFreq[i]--;
+        }
+    }
+     return res;
+    }
+};
