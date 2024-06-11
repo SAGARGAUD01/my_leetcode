@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> relativeSortArray(vector<int>& a1, vector<int>& a2) {
+        
+        unordered_map<int, int> ormap;  // ordered_map
+        for (int i = 0; i < a2.size(); ++i) {
+            ormap[a2[i]] = i; // store elements of a2 in ormap
+        }
+
+        vector<int> ina2, notina2;
+        for (int i : a1) {
+            if (ormap.find(i) != ormap.end()) {
+                ina2.push_back(i);
+            } else {
+                notina2.push_back(i);
+            }
+        }
+
+        // sort the elements that are in a2 according to their order in a2 (comp_func)
+        sort(ina2.begin(), ina2.end(), [&](int a, int b) {
+            return ormap[a] < ormap[b];  // comp_func
+        });
+
+        // sort the elements not in a2 in ascending order
+        sort(notina2.begin(), notina2.end()); 
+
+        // combine the two groups
+        ina2.insert(ina2.end(), notina2.begin(), notina2.end());
+
+        return ina2;
+}
+    
+};
