@@ -1,0 +1,37 @@
+class Solution {
+public:
+   
+    int minDays(vector<int>& bloomDay, int m, int k) {
+         long long n = bloomDay.size(); //available day to grow
+        if (n < (long long)m * k) return -1;
+
+        int left = *min_element(bloomDay.begin(), bloomDay.end());
+        int right = *max_element(bloomDay.begin(), bloomDay.end());
+        
+        auto canMake = [&](int days) {
+            int bouquets = 0, flowers = 0;
+            for (int it : bloomDay) {
+                if (it <= days) { 
+                    if (++flowers == k) {  //k flower has to be picked up
+                        bouquets++; //so update
+                        flowers = 0;
+                    }
+                } else {
+                    flowers = 0;
+                }
+                if (bouquets >= m) return true;
+            }
+            return false;
+        };
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (canMake(mid)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+};
