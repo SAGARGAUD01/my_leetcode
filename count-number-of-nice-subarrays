@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        unordered_map<int, int> pref_sumcnt;
+    
+    int pref_sum = 0, nicesub_cnt = 0;
+
+    // There is one way to have a prefix sum of zero initially
+    pref_sumcnt[0] = 1;
+
+    for (int it : nums) {
+        
+        pref_sum += it % 2;
+
+        // If there exists a prefix with sum (prefixSum - k), then we found a nice subarray
+        if (pref_sumcnt.find(pref_sum - k) != pref_sumcnt.end()) {
+            nicesub_cnt += pref_sumcnt[pref_sum - k];
+        }
+
+        pref_sumcnt[pref_sum]++;
+    }
+             return nicesub_cnt;
+    }
+};
