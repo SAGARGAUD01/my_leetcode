@@ -1,0 +1,34 @@
+
+class Solution {
+
+public:
+    TreeNode* bstToGst(TreeNode* root) {
+         int sum = 0;
+        convert(root, sum); // my_helper func
+        return root;
+    }
+
+private:
+    
+    void convert(TreeNode* node, int &sum) {
+        if (node == nullptr) return; 
+        
+        // Traversing the r-subtree first
+        convert(node->right, sum);
+        
+        // Update the current node's value
+        sum += node->val;
+        node->val = sum;
+        
+        // Traversing the l-subtree
+        convert(node->left, sum);
+    }
+};
+
+// //in-order traversal of the tree (for testing)
+// void printInOrder(TreeNode* root) {
+//     if (root == nullptr) return;
+//     printInOrder(root->left);
+//     std::cout << root->val << " ";
+//     printInOrder(root->right);
+//     }
