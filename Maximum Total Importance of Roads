@@ -1,0 +1,35 @@
+class Solution {
+public:
+
+    long long maximumImportance(int n, vector<vector<int>>& roads) {
+        //kinda Dijkstra
+        vector<int> deg(n, 0);
+    
+    // Count the roads for each city
+    for (const auto& road : roads) {
+        deg[road[0]]++;
+        deg[road[1]]++;
+    }
+    
+       vector<int> indices(n);
+       iota(indices.begin(), indices.end(), 0);
+    
+    // Sort the city indices based on the degree (number of roads) in descending order
+        sort(indices.begin(), indices.end(), [&deg](int a, int b) {
+        return deg[a] > deg[b];
+    });
+    
+       vector<int> value(n);
+    for (int i = 0; i < n; ++i) {
+        value[indices[i]] = n - i; //storing all cities in value
+    }
+    
+    long long to_imp = 0;
+    for (const auto& it : roads) {
+        to_imp += value[it[0]] + value[it[1]];
+    }
+    
+    return to_imp;
+    }
+
+};
