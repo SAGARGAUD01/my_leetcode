@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int numWaterBottles(int nb, int numex) {
+        int tdr = nb;
+    int empbt = nb;
+
+    while (empbt >= numex) {
+        int nwbt = empbt / numex;
+        tdr += nwbt;
+        empbt = empbt % numex + nwbt;
+    }
+
+    return tdr;
+    }
+};
