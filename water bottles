@@ -1,3 +1,4 @@
+//direct easy
 class Solution {
 public:
     int numWaterBottles(int nb, int numex) {
