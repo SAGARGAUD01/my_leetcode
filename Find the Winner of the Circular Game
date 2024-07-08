@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int findTheWinner(int n, int k) {
+        vector<int> frnd(n);
+        for(int i=0; i<n; i++)  // from 1 to n
+           frnd[i] = i + 1; //ith friend brings you to the (i+1)th frnd
+        
+        for(int srt=0; n>1; n--){
+
+            srt = (srt + k -1) % n;
+            frnd.erase(frnd.begin() + srt);
+            srt = srt %(n-1);
+        }
+        return frnd[0];
+    }
+};
