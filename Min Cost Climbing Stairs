@@ -11,7 +11,7 @@
         if(dp[sz] != -1) {
             return dp[sz];
         }
-     dp[sz]  = cost[sz] + min(sol1(cost, sz-1,dp),sol1(cost, sz-2,dp));
+     dp[sz]  = cost[sz] + min(sol1(cost, sz-1,dp),sol1(cost, sz-2,dp));  //both case with min + cost[sz]
        
         return dp[sz];
           }
@@ -53,6 +53,6 @@ int sol3(vector<int>& cost, int sz) {
 
         //-------->dp :- Bottom -down approach <----------------------//
 
-        int sz = cost.size();
+        int sz = cost.size(); 
          return sol3(cost,sz);
     }
