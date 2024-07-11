@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string reverseParentheses(string s) {
+       stack<string> stk;
+       string curr;
+
+    for (char ch : s) {
+        if (ch == '(') {
+            // Push the current string to stack and start a new current string
+            stk.push(curr);
+            curr.clear();
+        } else if (ch == ')') {
+            // Reverse the current string
+            reverse(curr.begin(), curr.end());
+            curr = stk.top() + curr;
+            stk.pop();
+        } else {
+            curr.push_back(ch);
+        }
+    }
+
+    return curr;
+    }
+};
