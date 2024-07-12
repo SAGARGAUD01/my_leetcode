@@ -1,0 +1,42 @@
+class Solution {
+public:
+   
+      int removeAndCount(std::string &s, const std::string &target, int points) {
+ std::stack<char> st;
+    int count = 0;
+    
+    for (char c : s) {
+        if (!st.empty() && st.top() == target[0] && c == target[1]) {
+            st.pop();
+            count += points;
+        } else {
+            st.push(c);
+        }
+    }
+    
+    // Reconstruct the string without the removed substrings
+    std::string newString;
+    while (!st.empty()) {
+        newString.push_back(st.top());
+        st.pop();
+    }
+    std::reverse(newString.begin(), newString.end());
+    s = newString;
+    
+    return count;
+}
+
+  int maximumGain(string s, int x, int y) {
+    int mxpnt=0;
+    
+    if (x > y) {
+        mxpnt += removeAndCount(s, "ab", x);
+        mxpnt += removeAndCount(s, "ba", y);
+    } else {
+        mxpnt += removeAndCount(s, "ba", y);
+        mxpnt += removeAndCount(s, "ab", x);
+    }
+      return mxpnt;
+  }
+   
+};
