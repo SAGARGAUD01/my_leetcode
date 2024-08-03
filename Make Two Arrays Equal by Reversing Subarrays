@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool canBeEqual(vector<int>& target, vector<int>& arr) {
+        unordered_map<int, int> tr_count; //temp_array
+         for (int i : target) {
+          tr_count[i]++; //storing ele of target-array in temp_array
+        }
+    
+    // Use the same hashmap to count down the frequencies for arr
+    for (int i : arr) {
+        tr_count[i]--;
+        // If any count goes below zero, it means arr has more instances of that number than target
+        if (tr_count[i] < 0) {
+            return false;
+        }
+    }
+    
+    // Check if all counts are zero
+    for (const auto& pair : tr_count) {
+        if (pair.second != 0) {
+            return false;
+        }
+    }
+    return true;
+    }
+};
