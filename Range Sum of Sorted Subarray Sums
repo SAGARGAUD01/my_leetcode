@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int rangeSum(vector<int>& nums, int n, int left, int right) {
+          const int MOD = 1e9+7;
+        vector<int> temp;
+        
+        for(int i = 0; i < n; ++i){
+            int it = nums[i];  //current sum
+            temp.push_back(it); //push current sum in temp vector-arr
+            for(int j = i+1; j < n; ++j){
+                it += nums[j];  //update curr-sum
+                temp.push_back(it);
+            }
+        }
+        
+        sort(temp.begin(), temp.end());
+        
+        return accumulate(temp.begin()+(left-1), temp.begin()+right, 0, [&MOD](int a, int b)
+        {return (a+b) % MOD;});
+    }
+
+};
