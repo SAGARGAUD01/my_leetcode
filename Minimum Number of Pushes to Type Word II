@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int minimumPushes(string word) {
+          std::sort(word.begin(), word.end());
+        std::unordered_map<char, int> frequencyMap;
+
+        for (char ch : word) {
+            frequencyMap[ch]++;
+        }
+
+        std::vector<std::pair<int, char>> frequencyVector;
+
+        for (const auto& entry : frequencyMap) {
+            frequencyVector.emplace_back(entry.second, entry.first);
+        }
+
+        std::sort(frequencyVector.rbegin(), frequencyVector.rend());
+
+        int result = 0, counter = 0;
+
+        for (const auto& entry : frequencyVector) {
+            counter++;
+            if (counter < 9) {
+                result += entry.first;
+            } else if (counter < 17) {
+                result += entry.first * 2;
+            } else if (counter < 25) {
+                result += entry.first * 3;
+            } else {
+                result += entry.first * 4;
+            }
+        }
+
+        return result;
+    }
+};
