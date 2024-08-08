@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+       
+     vector<vector<int>> res;
+     int totalCells = rows * cols;
+     res.push_back({rStart, cStart});
+
+    int steps = 1; // Steps to move in the current direction
+    int dir = 0; // 0 -> East, 1 -> South, 2 -> West, 3 -> North
+    
+    while (res.size() < totalCells) {
+        // East (right)
+        for (int i = 0; i < steps; ++i) {
+            cStart += (dir == 0 ? 1 : (dir == 2 ? -1 : 0));
+            rStart += (dir == 1 ? 1 : (dir == 3 ? -1 : 0));
+            if (rStart >= 0 && rStart < rows && cStart >= 0 && cStart < cols) {
+                res.push_back({rStart, cStart});
+            }
+        }
+        
+        // Turn clockwise (East -> South -> West -> North -> East ...)
+        dir = (dir + 1) % 4;
+        
+        // Every two turns, increase the no of steps to take
+        if (dir == 0 || dir == 2) {
+            ++steps;
+        }
+    }
+
+    return res;
+
+    }
+};
