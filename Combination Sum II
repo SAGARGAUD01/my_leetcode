@@ -1,0 +1,29 @@
+class Solution {
+public:
+    
+    void findCombinations(int idx, int t, vector<int>& c, vector<int>& curr, vector<vector<int>>& res) {
+        if (t == 0) {
+        res.push_back(curr);
+        return;
+    }
+
+    for (int i = idx; i < c.size(); i++) {
+        if (i > idx && c[i] == c[i - 1]) continue;  
+        if (c[i] > t) break;  
+
+        curr.push_back(c[i]);
+        findCombinations(i + 1, t - c[i], c, curr, res);  
+        curr.pop_back();  
+    }
+}
+
+    vector<vector<int>> combinationSum2(vector<int>& c, int t) {
+       vector<vector<int>> res;
+       vector<int> curr;
+
+        sort(c.begin(), c.end());  
+    findCombinations(0, t, c, curr, res);
+
+    return res;
+    }
+};
