@@ -1,0 +1,33 @@
+class Solution {
+public:
+    long long maxPoints(vector<vector<int>>& points) {
+
+         int m = points.size(), n = points[0].size(); //row & col
+          vector<long long> dp(n, 0);  //dp size 0 to n
+
+    for (int j = 0; j < n; ++j) {
+        dp[j] = points[0][j];
+    }
+
+    for (int i = 1; i < m; ++i) {
+        vector<long long> left_dp(n, 0), right_dp(n, 0);  //l & r dp
+
+        left_dp[0] = dp[0];  //keep 1st ele of dp inside left_dp
+        for (int j = 1; j < n; ++j) {
+            left_dp[j] = max(left_dp[j - 1] - 1, dp[j]); 
+        }
+
+        right_dp[n - 1] = dp[n - 1]; //last ele of dp[n-1]
+        for (int j = n - 2; j >= 0; --j) {
+            right_dp[j] = max(right_dp[j + 1] - 1, dp[j]);
+        }
+
+        for (int j = 0; j < n; ++j) {
+            dp[j] = points[i][j] + max(left_dp[j], right_dp[j]); //p[i][j]+max of l&r
+        }
+    }
+
+    return *max_element(dp.begin(), dp.end());
+    }
+
+};
