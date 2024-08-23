@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string fractionAddition(string expression) {
+        int numerator = 0, denominator = 1;  // Initialize to 0/1
+
+        istringstream iss(expression);
+        char op;
+        
+        while (iss >> op) {
+            int num, denom;
+            if (op == '+' || op == '-') { 
+                iss >> num;
+                num = (op == '-') ? -num : num;  //sign to numerator
+            } else { 
+                iss.putback(op); //last char of expression extracted
+                iss >> num;
+            }
+            iss.ignore();  // Ignore the '/'
+            iss >> denom;
+            
+            numerator = numerator * denom + num * denominator;
+            denominator *= denom;
+            
+            // Reduce the fraction by dividing by the GCD (irreducible)
+            int gcd = abs(__gcd(numerator, denominator));
+            numerator /= gcd;
+            denominator /= gcd;
+        }
+        
+        return to_string(numerator) + "/" + to_string(denominator);
+    }
+
+};
