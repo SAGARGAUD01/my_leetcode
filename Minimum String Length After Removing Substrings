@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int minLength(string s) {
+         stack<char> st; //maintain lifo 
+    for (char i : s) {
+        if (!st.empty()) {
+            char top = st.top(); 
+            if ((top == 'A' && i == 'B') || (top == 'C' && i == 'D')) {
+                st.pop();  // Remove the top elem as it forms "AB" or "CD"
+            } else {
+                st.push(i);
+            }
+        } else {
+            st.push(i); //ese
+        }
+    }
+    
+    return st.size();
+    }
+};
