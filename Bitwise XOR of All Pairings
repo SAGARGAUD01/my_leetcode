@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int xorAllNums(vector<int>& nums1, vector<int>& nums2) {
+            int xorNums1 = 0, xorNums2 = 0;
+
+        // Calculate XOR of all elements in nums1
+        for (int i : nums1) {
+            xorNums1 ^= i;
+        }
+
+        // Calculate XOR of all elements in nums2
+        for (int j : nums2) {
+            xorNums2 ^= j;
+        }
+
+        // If nums1.size() is even, all contributions from nums1 will cancel out
+        // If nums2.size() is even, all contributions from nums2 will cancel out
+        int res = 0;
+
+        if (nums1.size() % 2 == 1) {
+            res ^= xorNums2;
+        }
+        if (nums2.size() % 2 == 1) {
+            res ^= xorNums1; 
+        }
+        return res;
+    }
+};
